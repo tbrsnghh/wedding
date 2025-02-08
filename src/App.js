@@ -21,6 +21,8 @@ function App() {
       <Services />
       <Contact />
       <Footer />
+
+      <Menu/>
     </div>
   );
 }
