@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   HomeIcon,
-  ChartPieIcon,
   UsersIcon,
   TableIcon,
   PlusCircleIcon,
@@ -11,11 +10,11 @@ import { NavLink } from "react-router-dom";
 
 // Danh sách menu
 const menuItems = [
-  { name: "Tổng quan", path: "/admin", icon: HomeIcon },
-  { name: "Thống kê", path: "/admin/charts", icon: ChartPieIcon },
+  { name: "Tổng quan", path: "/admin/home", icon: HomeIcon },
+  {name:"Tiệc đã đặt", path:"/admin/booking", icon: TableIcon},
   { name: "Khách hàng", path: "/admin/users", icon: UsersIcon },
-  { name: "Menu", path: "/admin/forms", icon: TableIcon },
-  { name: "Sảnh tiệc", path: "/admin/tables", icon: TableIcon },
+  { name: "Menu", path: "/admin/menu", icon: TableIcon },
+  { name: "Sảnh tiệc", path: "/admin/hall", icon: TableIcon },
 ];
 
 const Sidebar = () => {
@@ -25,39 +24,53 @@ const Sidebar = () => {
     <div className="relative flex">
       {/* Nút mở sidebar */}
       <button
-        className="p-2 bg-gray-200 rounded-full shadow-md absolute top-4 left-4 z-50 transition-all duration-300"
+        className="p-2 bg-[#f5c518] rounded-full shadow-md fixed top-2 left-2 z-50 transition-all duration-300"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <MenuIcon className="w-6 h-6 text-gray-700" />
+        <MenuIcon className="w-6 h-6 text-white" />
       </button>
 
       {/* Sidebar */}
       <aside
-        className={`mt-10 bg-white border-r border-gray-200 h-screen px-6 py-6 transition-transform duration-300 ${
-          isOpen ? "translate-x-0 w-64" : "-translate-x-full w-0"
-        }`}
+        className={`mt-14  w-15 bg-[#f9c5d1] border-r border-[#f5c518] h-screen px-6 py-6 transition-all duration-300 
+        ${isOpen ? "w-64" : "w-0 overflow-hidden"}`}
       >
-        <nav className={`space-y-4 ${isOpen ? "opacity-100" : "opacity-0"}`}>
-          {menuItems.map((item, index) => (
-            <NavLink
-              key={index}
-              to={item.path}
-              className="flex items-center space-x-3 text-gray-700 py-3 px-4 rounded-lg hover:bg-gray-100 transition"
-            >
-              <item.icon className="w-5 h-5 text-gray-600" />
-              <span>{item.name}</span>
-            </NavLink>
-          ))}
-
-          {/* Nút Create Account */}
+      {isOpen && (
+        <><nav className="space-y-4">
+        {menuItems.map((item, index) => (
           <NavLink
-            to="/admin/create"
-            className="flex items-center justify-center bg-red-500 text-white py-3 px-4 rounded-lg hover:bg-red-600 transition shadow-md"
+            key={index}
+            to={item.path}
+            className={({ isActive }) =>
+              `relative flex items-center space-x-3 py-3 px-4 rounded-lg transition text-white
+              ${isActive ? "bg-[#f5c518] font-semibold" : "hover:bg-[#f5b6c3]"}`
+            }
           >
-            <PlusCircleIcon className="w-5 h-5" />
-            <span className="ml-2">Nút gì đó</span>
+            {/* Thanh vàng bên trái nếu active */}
+            {({ isActive }) => (
+              <>
+                <span
+                  className={`absolute left-0 top-0 h-full w-1 bg-white transition-all 
+                  ${isActive ? "opacity-100" : "opacity-0"}`}
+                ></span>
+
+                <item.icon className="w-5 h-5" />
+                <span>{item.name}</span>
+              </>
+            )}
           </NavLink>
-        </nav>
+        ))}
+
+        {/* Nút Create Account */}
+        <NavLink
+          to="/admin/create"
+          className="flex items-center justify-center bg-[#f5c518] text-white py-3 px-4 rounded-lg hover:bg-[#e0ac16] transition shadow-md"
+        >
+          <PlusCircleIcon className="w-5 h-5" />
+          <span className="ml-2">Thêm tài khoản</span>
+        </NavLink>
+      </nav></>
+      )}
       </aside>
     </div>
   );

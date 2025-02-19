@@ -14,6 +14,9 @@ import Admin from "./admin/Admin";
 import Register from "./page/Register";
 import ProtectedRoute from "./admin/ProtectedRoute";
 import Sidebar from "./admin/components/sidebar/Sidebar";
+import User_manage from "./admin/pages/User_manage";
+import HallManage from "./admin/pages/Hall_manage";
+
 
 function App() {
   return (
@@ -40,15 +43,11 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         {/* admin */}
-        <Route
-          path="/admin"
-          element={
-            <ProtectedRoute>
-              <Sidebar />
-              <Admin />
-            </ProtectedRoute>
-          }
-        />
+        {/* <Route  path="/admin" element={<ProtectedRoute><Sidebar /><Admin /></ProtectedRoute>}/> */}
+        <Route  path="/admin/home" element={<ProtectedRoute><Sidebar /><Admin /></ProtectedRoute>}/>
+        <Route  path="/admin/users" element={<ProtectedRoute><Sidebar /><User_manage/></ProtectedRoute>}/>
+        <Route  path="/admin/menu" element={<ProtectedRoute><Sidebar /><User_manage/></ProtectedRoute>}/>
+        <Route  path="/admin/hall" element={<ProtectedRoute><Sidebar /><HallManage/></ProtectedRoute>}/>
       </Routes>
     </div>
   );

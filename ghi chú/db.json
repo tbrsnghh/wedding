@@ -1,0 +1,82 @@
+[{
+  "bookingId": "b123456",
+  "customer": {
+    "customerId": "c78910",
+    "fullName": "Nguyễn Văn A",
+    "phone": "0987654321",
+    "email": "nguyenvana@example.com",
+    "address": "123 Đường ABC, Quận 1, TP.HCM"
+  },
+  "eventDetails": {
+    "dateTime": "2025-06-15T18:00:00Z",
+    "hall": {
+      "hallId": "h001",
+      "name": "Sảnh Vàng",
+      "location": "Tầng 2, Nhà hàng XYZ",
+      "capacity": 200
+    },
+    "guests": 150,
+    "tables": 15
+  },
+  "menu": {
+    "setMenuId": "m56789",
+    "name": "Set Tiệc Cao Cấp",
+    "dishes": [
+      {
+        "dishId": "d001",
+        "name": "Súp bào ngư vi cá",
+        "price": 500000
+      },
+      {
+        "dishId": "d002",
+        "name": "Tôm hùm hấp rượu vang",
+        "price": 1200000
+      },
+      {
+        "dishId": "d003",
+        "name": "Bò Wagyu nướng sốt tiêu đen",
+        "price": 1500000
+      }
+    ],
+    "totalPrice": 3200000
+  },
+  "cost": {
+    "hallRental": 5000000,
+    "menuCost": 48000000,
+    "serviceFee": 2000000,
+    "discount": 500000,
+    "total": 54500000
+  },
+  "status": "confirmed"
+}];
+[
+  {
+    "hallId": "h001",
+    "name": "Sảnh Vàng",
+    "location": "Tầng 2, Nhà hàng XYZ",
+    "capacity": 200,
+    "availableTimeFrames": [
+      { "startTime": "08:00", "endTime": "12:00" },
+      { "startTime": "15:00", "endTime": "23:00" }
+    ]
+  },
+  {
+    "hallId": "h002",
+    "name": "Sảnh Bạc",
+    "location": "Tầng 3, Nhà hàng XYZ",
+    "capacity": 150,
+    "availableTimeFrames": [
+      { "startTime": "08:00", "endTime": "18:00" },
+      { "startTime": "21:00", "endTime": "23:00" }
+    ]
+  },
+  {
+    "hallId": "h003",
+    "name": "Sảnh Kim Cương",
+    "location": "Tầng 4, Nhà hàng XYZ",
+    "capacity": 250,
+    "availableTimeFrames": [
+      { "startTime": "08:00", "endTime": "23:00" }
+    ]
+  }
+]
