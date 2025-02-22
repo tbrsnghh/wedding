@@ -5,16 +5,20 @@ import {
   TableIcon,
   PlusCircleIcon,
   MenuIcon,
+  OfficeBuildingIcon,
+  CakeIcon,
+  CheckIcon
 } from "@heroicons/react/outline";
 import { NavLink } from "react-router-dom";
 
 // Danh sách menu
 const menuItems = [
   { name: "Tổng quan", path: "/admin/home", icon: HomeIcon },
-  {name:"Tiệc đã đặt", path:"/admin/booking", icon: TableIcon},
+  {name:"Tiệc đã đặt", path:"/admin/booking", icon: CheckIcon},
   { name: "Khách hàng", path: "/admin/users", icon: UsersIcon },
-  { name: "Menu", path: "/admin/menu", icon: TableIcon },
-  { name: "Sảnh tiệc", path: "/admin/hall", icon: TableIcon },
+  { name: "Sảnh tiệc", path: "/admin/halls", icon: OfficeBuildingIcon },
+  { name: "Thực đơn", path: "/admin/menu", icon: MenuIcon },
+  { name: "Món ăn", path: "/admin/hall", icon: CakeIcon },
 ];
 
 const Sidebar = () => {

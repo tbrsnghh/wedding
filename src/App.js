@@ -47,7 +47,7 @@ function App() {
         <Route  path="/admin/home" element={<ProtectedRoute><Sidebar /><Admin /></ProtectedRoute>}/>
         <Route  path="/admin/users" element={<ProtectedRoute><Sidebar /><User_manage/></ProtectedRoute>}/>
         <Route  path="/admin/menu" element={<ProtectedRoute><Sidebar /><User_manage/></ProtectedRoute>}/>
-        <Route  path="/admin/hall" element={<ProtectedRoute><Sidebar /><HallManage/></ProtectedRoute>}/>
+        <Route  path="/admin/halls" element={<ProtectedRoute><Sidebar /><HallManage/></ProtectedRoute>}/>
       </Routes>
     </div>
   );

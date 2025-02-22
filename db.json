@@ -1,4 +1,5 @@
-[{
+[
+  {
   "bookingId": "b123456",
   "customer": {
     "customerId": "c78910",
