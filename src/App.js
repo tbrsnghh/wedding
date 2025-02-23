@@ -5,7 +5,7 @@ import HeroSection from './components/herosection/HeroSection';
 import Gioithieu from './components/sanhtiec/Gioithieu';
 import Thucdon from './components/thucdon/Thucdon';
 import Trangchu from './components/trangchu/Trangchu';
-import Services from './components/Services';
+
 import Lienhe from './components/lienhe/Lienhe';
 import Footer from './components/footer/Footer';
 
@@ -24,7 +24,7 @@ function App() {
         <Route path="/lienhe" element={<Lienhe />} />
         <Route path="/gioithieu" element={<Gioithieu />} />
         <Route path="/thucdon" element={<Thucdon />} />
-        <Route path="/services" element={<Services />} />
+        <Route path="/lienhe" element={<Lienhe />} />
       </Routes>
       
       <Footer />
