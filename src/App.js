@@ -16,6 +16,7 @@ import ProtectedRoute from "./admin/ProtectedRoute";
 import Sidebar from "./admin/components/sidebar/Sidebar";
 import User_manage from "./admin/pages/User_manage";
 import HallManage from "./admin/pages/Hall_manage";
+import MenuManage from "./admin/pages/Menu_manage";
 
 
 function App() {
@@ -46,7 +47,7 @@ function App() {
         {/* <Route  path="/admin" element={<ProtectedRoute><Sidebar /><Admin /></ProtectedRoute>}/> */}
         <Route  path="/admin/home" element={<ProtectedRoute><Sidebar /><Admin /></ProtectedRoute>}/>
         <Route  path="/admin/users" element={<ProtectedRoute><Sidebar /><User_manage/></ProtectedRoute>}/>
-        <Route  path="/admin/menu" element={<ProtectedRoute><Sidebar /><User_manage/></ProtectedRoute>}/>
+        <Route  path="/admin/menu" element={<ProtectedRoute><Sidebar /><MenuManage/></ProtectedRoute>}/>
         <Route  path="/admin/halls" element={<ProtectedRoute><Sidebar /><HallManage/></ProtectedRoute>}/>
       </Routes>
     </div>
