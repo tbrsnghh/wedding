@@ -16,7 +16,7 @@ export default function Login() {
   
       if (login.fulfilled.match(result)) {
         //navigate(result.payload.user.role === "admin" ? "/admin" : "/");
-        navigate("/admin");
+        navigate("/admin/home");
       }
     } catch (error) {
       console.error("Đăng nhập thất bại", error);

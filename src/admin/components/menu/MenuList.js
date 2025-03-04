@@ -21,7 +21,7 @@ export default function MenuList({ menus, openModal }) {
             <tr
               key={menu.id}
               className="border-b hover:bg-[#fff5f7] transition"
-              onMouseEnter={() => openModal(menu)}
+              onClick={() => openModal(menu)}
             >
               <td className="p-3 font-semibold">{menu.name}</td>
               <td className="p-3 text-gray-600">{menu.description}</td>
