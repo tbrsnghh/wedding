@@ -17,6 +17,7 @@ import Sidebar from "./admin/components/sidebar/Sidebar";
 import User_manage from "./admin/pages/User_manage";
 import HallManage from "./admin/pages/Hall_manage";
 import MenuManage from "./admin/pages/Menu_manage";
+import Booking from "./page/Booking";
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
             </>
           }
         />
+        <Route path="/booking" element={<Booking />} />
         {/* login */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

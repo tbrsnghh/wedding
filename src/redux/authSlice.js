@@ -33,7 +33,21 @@ export const login = createAsyncThunk(
     }
   }
 );
-
+export const getMe = createAsyncThunk("api/me", async (token, { rejectWithValue }) => {
+  if (!token) return rejectWithValue("Login required");
+  try {
+    const response = await axios.get(`${BaseURL}api/me`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log('response', response.data);
+    
+    return response.data; // Trả về dữ liệu user
+  } catch (error) {
+    return rejectWithValue(error.response?.data || "Lỗi lấy thông tin user");
+  }
+});
 // Khởi tạo state
 const initialState = {
   user: null,
@@ -80,6 +94,18 @@ const authSlice = createSlice({
         localStorage.setItem("token", action.payload.token);
       })
       .addCase(registerUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(getMe.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getMe.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+      })
+      .addCase(getMe.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

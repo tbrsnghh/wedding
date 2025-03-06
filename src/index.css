@@ -11,3 +11,27 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.bg-pastel-pink {
+  background-color: #f5b6c3;
+}
+.bg-pastel-pink-light {
+  background-color: #FFEFEF;
+}
+
+.bg-pastel-yellow {
+  background-color: #f5c518;
+}
+.bg-pastel-yellow-light {
+  background-color: #F9F9E0;
+}
+
+.bg-pastel-blue-light {
+  background-color: #8ACDD7;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
+
+.font-dancing-script {
+  font-family: 'Dancing Script', cursive;
+}
