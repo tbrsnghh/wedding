@@ -3,7 +3,18 @@ import axios from "axios";
 
 const BaseURL = "http://localhost:8081/";
 
-// Tạo async thunk đúng cách
+// Hàm helper để xử lý trạng thái pending, fulfilled, rejected
+const handlePending = (state) => {
+  state.loading = true;
+  state.error = null;
+};
+
+const handleRejected = (state, action) => {
+  state.loading = false;
+  state.error = action.payload;
+};
+
+// Thunk: Đăng ký
 export const registerUser = createAsyncThunk(
   "auth/register",
   async ({ username, email, password }, { rejectWithValue }) => {
@@ -19,6 +30,8 @@ export const registerUser = createAsyncThunk(
     }
   }
 );
+
+// Thunk: Đăng nhập
 export const login = createAsyncThunk(
   "auth/login",
   async ({ email, password }, { rejectWithValue }) => {
@@ -27,28 +40,32 @@ export const login = createAsyncThunk(
         email,
         password,
       });
-      return response.data; // Trả về dữ liệu user
+      return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Đăng nhập thất bại");
     }
   }
 );
-export const getMe = createAsyncThunk("api/me", async (token, { rejectWithValue }) => {
-  if (!token) return rejectWithValue("Login required");
-  try {
-    const response = await axios.get(`${BaseURL}api/me`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    console.log('response', response.data);
-    
-    return response.data; // Trả về dữ liệu user
-  } catch (error) {
-    return rejectWithValue(error.response?.data || "Lỗi lấy thông tin user");
+
+// Thunk: Lấy thông tin người dùng
+export const getMe = createAsyncThunk(
+  "auth/getMe",
+  async (_, { getState, rejectWithValue }) => {
+    const token = getState().auth.token; // Lấy token từ state
+    if (!token) return rejectWithValue("Bạn chưa đăng nhập!");
+
+    try {
+      const response = await axios.get(`${BaseURL}api/me`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "Lỗi lấy thông tin user");
+    }
   }
-});
-// Khởi tạo state
+);
+
+// Khởi tạo state ban đầu
 const initialState = {
   user: null,
   token: localStorage.getItem("token") || null,
@@ -56,7 +73,7 @@ const initialState = {
   error: null,
 };
 
-// Tạo slice với extraReducers để xử lý async thunk
+// Slice
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -66,51 +83,41 @@ const authSlice = createSlice({
       state.token = null;
       localStorage.removeItem("token");
     },
+    setUser: (state, action) => {
+      state.user = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(login.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
+      // Đăng nhập
+      .addCase(login.pending, handlePending)
       .addCase(login.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload.user;
         state.token = action.payload.token;
         localStorage.setItem("token", action.payload.token);
       })
-      .addCase(login.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-      })
-      .addCase(registerUser.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
+      .addCase(login.rejected, handleRejected)
+
+      // Đăng ký
+      .addCase(registerUser.pending, handlePending)
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload.user;
         state.token = action.payload.token;
         localStorage.setItem("token", action.payload.token);
       })
-      .addCase(registerUser.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-      })
-      .addCase(getMe.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
+      .addCase(registerUser.rejected, handleRejected)
+
+      // Lấy thông tin user
+      .addCase(getMe.pending, handlePending)
       .addCase(getMe.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload;
+        state.user = action.payload.user;
       })
-      .addCase(getMe.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-      });
+      .addCase(getMe.rejected, handleRejected);
   },
 });
 
-export const { logout } = authSlice.actions;
+export const { logout, setUser } = authSlice.actions;
 export default authSlice.reducer;
