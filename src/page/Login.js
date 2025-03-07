@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { getMe, login } from "../redux/authSlice";
 
 export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const { loading, error, user, token } = useSelector((state) => state.auth);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,13 +18,14 @@ export default function Login() {
     }
   }, [token, user, dispatch]);
 
-  // ✅ Điều hướng khi đã có user
+  // ✅ Điều hướng khi đã có user, cho cả trường hợp chuyển đến từ trang khác
   useEffect(() => {
     if (user) {
       console.log("User info:", user);
-      navigate(user.role === "admin" ? "/admin/home" : "/");
+      const redirectTo = location.state?.from || (user.role === "admin" ? "/admin" : "/");
+      navigate(redirectTo);
     }
-  }, [user, navigate]);
+  }, [user, navigate, location.state]);
 
   const handleLogin = async () => {
     if (loading) return; // Ngăn chặn spam click khi đang loading
