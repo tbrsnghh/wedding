@@ -64,6 +64,26 @@ export const getMe = createAsyncThunk(
     }
   }
 );
+// edit thông tin user
+export const editMe = createAsyncThunk(
+  "auth/editMe",
+  async ({ email, username, birth, gender, phone, address }, { getState, rejectWithValue }) => {
+    try {
+      const token = getState().auth.token; // Lấy token từ state
+      if (!token) return rejectWithValue("Bạn chưa đăng nhập!");
+
+      const response = await axios.put(
+        `${BaseURL}api/me`, 
+        { email, username, birth, gender, phone, address }, // Body request
+        { headers: { Authorization: `Bearer ${token}` } } // Headers
+      );
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "Lỗi cập nhật thông tin user");
+    }
+  }
+);
 
 // Khởi tạo state ban đầu
 const initialState = {
@@ -115,7 +135,13 @@ const authSlice = createSlice({
         state.loading = false;
         state.user = action.payload.user;
       })
-      .addCase(getMe.rejected, handleRejected);
+      .addCase(getMe.rejected, handleRejected)
+      .addCase(editMe.pending, handlePending)
+      .addCase(editMe.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload.user;
+      })
+      .addCase(editMe.rejected, handleRejected);
   },
 });
 

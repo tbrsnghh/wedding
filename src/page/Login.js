@@ -13,7 +13,7 @@ export default function Login() {
 
   // ✅ Lấy user khi có token
   useEffect(() => {
-    if (token && !user) {
+    if ((token !== '' || token !== 'null') && !user) {
       dispatch(getMe());
     }
   }, [token, user, dispatch]);
@@ -21,8 +21,7 @@ export default function Login() {
   // ✅ Điều hướng khi đã có user, cho cả trường hợp chuyển đến từ trang khác
   useEffect(() => {
     if (user) {
-      console.log("User info:", user);
-      const redirectTo = location.state?.from || (user.role === "admin" ? "/admin" : "/");
+      const redirectTo = location.state?.from || (user.role === "admin" ? "/admin/home" : "/");
       navigate(redirectTo);
     }
   }, [user, navigate, location.state]);

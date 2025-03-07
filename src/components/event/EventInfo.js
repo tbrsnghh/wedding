@@ -1,7 +1,11 @@
-import React from 'react'
+import React from "react";
 
 export default function EventInfo() {
   return (
-    <div>EventInfo</div>
-  )
+    <>
+      <h2 className="text-lg font-semibold text-gray-700 my-3">
+        Thông Tin Sự Kiện
+      </h2>
+    </>
+  );
 }

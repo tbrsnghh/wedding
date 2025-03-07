@@ -24,7 +24,7 @@ const Booking = () => {
 
   if (!token) {
     return (
-      <div className="bg-pastel-pink-light h-screen p-4 text-center flex flex-col items-center justify-center">
+      <div className="bg-pastel-pink-light p-4 text-center flex flex-col items-center justify-center">
         <h1 className="text-2xl font-bold">Bạn chưa đăng nhập</h1>
         <p>Cần đăng nhập để đặt tiệc</p>
         <p>Đang chuyển hướng đến đăng nhập... 🤗</p>
@@ -51,8 +51,8 @@ const Booking = () => {
   };
 
   return (
-    <div className="w-full bg-pastel-pink-light h-screen p-4 text-center flex flex-col">
-      <h1 className="text-3xl font-bold font-dancing-script text-center mb-6">Đặt Tiệc</h1>
+    <div className="w-full min-h-screen bg-pastel-pink-light p-4 text-center flex flex-col">
+      <h1 className="text-6xl font-bold font-dancing-script text-center mb-6">Đặt Tiệc</h1>
 
       {/* 🌟 Hiển thị bước hiện tại */}
       {renderStep()}
