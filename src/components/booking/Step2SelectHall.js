@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchHalls } from "../../redux/hallSlice";
 
-export default function Step2SelectHall({ onNext, onBack }) {
+export default function Step2SelectHall() {
   const dispatch = useDispatch();
   const halls = useSelector((state) => state.hall.halls);
   const [selectedHall, setSelectedHall] = useState(0);
-  console.log('Halls: ', halls);
   
   useEffect(() => {
     dispatch(fetchHalls());
@@ -21,7 +20,7 @@ export default function Step2SelectHall({ onNext, onBack }) {
           className="bg-gray-100 p-2 rounded cursor-pointer hover:bg-gray-200 transition h-10 hover:shadow-md"
           onChange={(e) => setSelectedHall(e.target.value)}
         >
-          <option value="0">{halls && halls[0].name}</option>
+          <option value="0">{halls && halls[0]?.name}</option>
           {halls && halls.map((hall, index) => (
             <option key={index} value={index}>
               {hall.name} - Sức chứa: {hall.capacity} người
@@ -29,7 +28,7 @@ export default function Step2SelectHall({ onNext, onBack }) {
           ))}
         </select>
         <div className="bg-gray-100 col-span-2 p-4 rounded">
-          {selectedHall !== "" && (
+          {halls && selectedHall !== "" && (
             <div>
               <p className="text-lg font-semibold mb-2">
                 {halls[selectedHall].name}
@@ -45,18 +44,6 @@ export default function Step2SelectHall({ onNext, onBack }) {
         </div>
       </div>
       <div className="space-x-4">
-        <button
-          onClick={onBack}
-          className="bg-white text-black px-4 py-2 rounded mt-4"
-        >
-          Bước trước
-        </button>
-        <button
-          onClick={onNext}
-          className="bg-rose-500 text-white px-4 py-2 rounded mt-4"
-        >
-          Tiếp
-        </button>
       </div>
     </div>
   );

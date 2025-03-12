@@ -12,7 +12,12 @@ const Booking = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [step, setStep] = useState(1); // 🌟 Lưu bước hiện tại
-
+  const [eventInfo, setEventInfo] = useState({
+    eventName: "",
+    eventDate: "",
+    tableCount: 0,
+    guestCount: 0,
+  });
   // Nếu chưa đăng nhập, chuyển hướng về login
   useEffect(() => {
     if (!token) {
@@ -31,22 +36,22 @@ const Booking = () => {
       </div>
     );
   }
-
+  
   // 🌟 Chọn component hiển thị dựa trên bước hiện tại
   const renderStep = () => {
     switch (step) {
       case 1:
-        return <Step1GeneralInfo onNext={() => setStep(2)} />;
+        return <Step1GeneralInfo eventInfo={eventInfo} setEventInfo={setEventInfo} />;
       case 2:
-        return <Step2SelectHall onNext={() => setStep(3)} onBack={() => setStep(1)} />;
+        return <Step2SelectHall />;
       case 3:
-        return <Step3SelectMenu onNext={() => setStep(4)} onBack={() => setStep(2)} />;
+        return <Step3SelectMenu />;
       case 4:
-        return <Step4Expense onNext={() => setStep(5)} onBack={() => setStep(3)} />;
+        return <Step4Expense />;
       case 5:
-        return <Step5Confirmation onBack={() => setStep(4)} />;
+        return <Step5Confirmation />;
       default:
-        return <Step1GeneralInfo onNext={() => setStep(2)} />;
+        return <Step1GeneralInfo />;
     }
   };
 
@@ -58,8 +63,24 @@ const Booking = () => {
       {renderStep()}
 
       {/* 🌟 Hiển thị tiến trình */}
-      <div className="bottom-5 left-170 absolute">
+      <div className="flex items-center space-x-4 justify-center absolute bottom-4 left-0 right-0">
+        {step > 1 && (
+          <button
+            onClick={() => setStep(step - 1)}
+            className="bg-rose-500 text-white px-4 py-2 rounded transition hover:bg-rose-600"
+          >
+            ← Quay lại
+          </button>
+        )}
         <p>Bước {step} / 5</p>
+        {step < 5 && (
+          <button
+            onClick={() => setStep(step + 1)}
+            className="bg-rose-500 text-white px-4 py-2 rounded transition hover:bg-rose-600"
+          >
+            Tiếp theo →
+          </button>
+        )}
       </div>
     </div>
   );

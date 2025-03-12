@@ -13,7 +13,8 @@ export default function Login() {
 
   // ✅ Lấy user khi có token
   useEffect(() => {
-    if ((token !== '' || token !== 'null') && !user) {
+    if (token && !user) {
+      console.log("token", token);
       dispatch(getMe());
     }
   }, [token, user, dispatch]);
