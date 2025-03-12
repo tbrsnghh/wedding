@@ -12,12 +12,17 @@ const Booking = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [step, setStep] = useState(1); // 🌟 Lưu bước hiện tại
+  
   const [eventInfo, setEventInfo] = useState({
     eventName: "",
     eventDate: "",
+    startTime: "",
+    endTime: "",
     tableCount: 0,
     guestCount: 0,
+    hallId: 0,
   });
+  
   // Nếu chưa đăng nhập, chuyển hướng về login
   useEffect(() => {
     if (!token) {
@@ -43,7 +48,7 @@ const Booking = () => {
       case 1:
         return <Step1GeneralInfo eventInfo={eventInfo} setEventInfo={setEventInfo} />;
       case 2:
-        return <Step2SelectHall />;
+        return <Step2SelectHall eventInfo={eventInfo} setEventInfo={setEventInfo}/>;
       case 3:
         return <Step3SelectMenu />;
       case 4:

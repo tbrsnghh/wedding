@@ -33,11 +33,31 @@ export default function EventInfo({eventInfo, setEventInfo }) {
         name="eventDate"
         value={eventInfo.eventDate}
         onChange={handleChange}
-        className="w-full p-2 border border-gray-300 rounded-md focus:ring-rose-500 focus:border-rose-500 text-sm"
+        className="col-span-2 p-2 border border-gray-300 rounded-md focus:ring-rose-500 focus:border-rose-500 text-sm"
       />
     </div>
 
-    {/* Số bàn đặt */}
+    {/* Thời gian */}
+    <div className="grid grid-cols-3 gap-4">
+      <label className="text-sm text-gray-600">Thời gian</label>
+      <div className="flex">
+      <input
+        type="time"
+        name="eventStartTime"
+        value={eventInfo.startTime}
+        onChange={handleChange}
+        className="col-span-1 p-2 border border-gray-300 rounded-md focus:ring-rose-500 focus:border-rose-500 text-sm"
+      />
+      <span className="text-lg p-2"> - </span>
+      <input
+        type="time"
+        name="eventEndTime"
+        value={eventInfo.endTime}
+        onChange={handleChange}
+        className="col-span-1 p-2 border border-gray-300 rounded-md focus:ring-rose-500 focus:border-rose-500 text-sm"
+      />
+      </div>
+    </div>
     <div className="grid grid-cols-3 gap-4">
       <label className="text-sm text-gray-600">Số bàn đặt</label>
       <input

@@ -27,7 +27,7 @@ export default function CustomerInfo() {
 
   return (
     <>
-      <div className="w-1/3 max-w-md bg-white shadow-md rounded-lg p-4">
+      <div className="w-1/3 h-min max-w-md bg-white shadow-md rounded-lg p-4">
         <h2 className="text-lg font-semibold text-gray-700 mb-3">
           Thông Tin Khách Hàng
         </h2>
