@@ -1,34 +1,26 @@
-import React, { useState, useEffect, useCallback } from "react";
-import "./herosection.css";
-import logo from "../../images/anhcuoi3.jpg";
+import React, { useEffect, useState } from "react";
+import styles from "./herosection.module.css"; // Import CSS Module đúng cách
 
-const HeroSection = ({ onScrollPast }) => {
+const HeroSection = () => {
   const [hidden, setHidden] = useState(false);
 
-  const handleScroll = useCallback(() => {
-    const threshold = window.innerHeight;
-    if (window.scrollY > threshold) {
-      setHidden(true);
-      if (onScrollPast) {
-        onScrollPast();
-      }
-    } else {
-      setHidden(false);
-    }
-  }, [onScrollPast]);
-
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      setHidden(scrollY > 500); // Ẩn khi cuộn quá 500px
+    };
+
+    window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [handleScroll]);
+  }, []);
 
   return (
-    <div className="hero-wrapper">
-      <div className={`hero-container ${hidden ? "hidden" : ""}`}>
-        <img 
-          src={logo} 
-          alt="Nhà Hàng Tiệc Cưới Đông Á" 
-          className="hero-image"
+    <div className={`${styles.heroWrapper} ${hidden ? styles.hidden : ""}`}>
+      <div className={styles.heroContainer}>
+        <img
+          src="/images/anhcuoi3.jpg"
+          alt="Nhà Hàng Tiệc Cưới Đông Á"
+          className={styles.heroImage}
           loading="lazy"
         />
       </div>
