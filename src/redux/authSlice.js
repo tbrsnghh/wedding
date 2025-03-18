@@ -34,7 +34,7 @@ export const registerUser = createAsyncThunk(
 // Thunk: Đăng nhập
 export const login = createAsyncThunk(
   "auth/login",
-  async ({ email, password }, { rejectWithValue }) => {
+  async ({ email, password }, { getState, rejectWithValue }) => {
     try {
       const response = await axios.post(`${BaseURL}auth/login`, {
         email,
@@ -42,6 +42,14 @@ export const login = createAsyncThunk(
       });
       return response.data;
     } catch (error) {
+      if (error.response?.status === 401) {
+        console.log('clear token');
+        
+        // Xóa token nếu lỗi 401
+        const state = getState();
+        state.auth.token = null;
+        localStorage.removeItem("token");
+      }
       return rejectWithValue(error.response?.data || "Đăng nhập thất bại");
     }
   }
@@ -117,7 +125,12 @@ const authSlice = createSlice({
         state.token = action.payload.token;
         localStorage.setItem("token", action.payload.token);
       })
-      .addCase(login.rejected, handleRejected)
+      .addCase(login.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        state.user = null;
+        state.token = null;
+      })
 
       // Đăng ký
       .addCase(registerUser.pending, handlePending)

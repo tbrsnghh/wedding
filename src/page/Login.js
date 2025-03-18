@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { getMe, login } from "../redux/authSlice";
+import { getMe, login, logout } from "../redux/authSlice";
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -14,8 +14,14 @@ export default function Login() {
   // ✅ Lấy user khi có token
   useEffect(() => {
     if (token && !user) {
-      console.log("token", token);
-      dispatch(getMe());
+      dispatch(getMe()).unwrap()
+        .catch((err) => {
+          console.error("Lấy thông tin user thất bại:", err);
+          token && dispatch(logout());
+          localStorage.removeItem("token");
+window.location.reload();
+
+        });
     }
   }, [token, user, dispatch]);
 

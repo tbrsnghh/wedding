@@ -17,7 +17,7 @@ export default function MenuList({ menus, openModal }) {
           </tr>
         </thead>
         <tbody>
-          {menus.map((menu) => (
+          {menus && menus.map((menu) => (
             <tr
               key={menu.id}
               className="border-b hover:bg-[#fff5f7] transition"

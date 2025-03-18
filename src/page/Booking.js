@@ -21,6 +21,7 @@ const Booking = () => {
     tableCount: 0,
     guestCount: 0,
     hallId: 0,
+    menuId: 0,
   });
   
   // Nếu chưa đăng nhập, chuyển hướng về login
@@ -50,7 +51,7 @@ const Booking = () => {
       case 2:
         return <Step2SelectHall eventInfo={eventInfo} setEventInfo={setEventInfo}/>;
       case 3:
-        return <Step3SelectMenu />;
+        return <Step3SelectMenu eventInfo={eventInfo} setEventInfo={setEventInfo}/>;
       case 4:
         return <Step4Expense />;
       case 5:

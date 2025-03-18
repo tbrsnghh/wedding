@@ -2,36 +2,36 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const BaseURL = "http://localhost:8081/";
-export const fetchMenus = createAsyncThunk("menu/fetchMenus", async () => {
-  const response = await axios.get(`${BaseURL}api/menu`);
+export const fetchDishes = createAsyncThunk("dish/fetchDishes", async () => {
+  const response = await axios.get(`${BaseURL}api/dishes`);
   return response.data;
 });
 const initialState = {
-  menu: [],
+  dish: [],
   loading: false,
   error: null,
 };
 
-const menuSlice = createSlice({
-  name: "menu",
+const dishSlice = createSlice({
+  name: "dish",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchMenus.pending, (state) => {
+      .addCase(fetchDishes.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchMenus.fulfilled, (state, action) => {
+      .addCase(fetchDishes.fulfilled, (state, action) => {
         state.loading = false;
-        state.menu = action.payload;
+        state.dish = action.payload.dishes;
       })
-      .addCase(fetchMenus.rejected, (state, action) => {
+      .addCase(fetchDishes.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
-    })
+      });
   },
 });
 
-export const {  } = menuSlice.actions;
-export default menuSlice.reducer;
+export const {  } = dishSlice.actions;
+export default dishSlice.reducer;

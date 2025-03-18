@@ -15,7 +15,7 @@ const handleRejected = (state, action) => {
 };
 // thunk
 export const fetchHalls = createAsyncThunk("hall/fetchHalls", async () => {
-  const response = await axios.get(`${BaseURL}/halls`);
+  const response = await axios.get(`${BaseURL}/hall`);
   return response.data;
 });
 // Khởi tạo state ban đầu
@@ -35,7 +35,7 @@ const hallSlice = createSlice({
     builder
     .addCase(fetchHalls.pending, handlePending)
     .addCase(fetchHalls.fulfilled, (state, action) => {
-      state.halls = action.payload.halls;
+      state.halls = action.payload;
       state.loading = false;
     })
     .addCase(fetchHalls.rejected, handleRejected);
